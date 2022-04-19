@@ -9,8 +9,8 @@
 cron:10 10 10 10 *
 */
 
-let jd_cjhy_activityId = "bc21b6baaabf42f28a2d16eeadd5d998" // 活动ID
-let jd_cjhy_activityUrl = "https://cjhydz-isv.isvjcloud.com" // 活动地址
+let jd_cjhy_activityId = "" // 活动ID
+let jd_cjhy_activityUrl = "" // 活动地址
 
 const $ = new Env('CJ组队瓜分京豆');
 var _0xodl = 'jsjiami.com.v6', _0xodl_ = ['_0xodl'],
