@@ -6,11 +6,11 @@
 5. 指定容器 -
 6. 开启静默
 7. 禁用监视
+cron:10 10 10 10 *
 */
-
 let mode = __dirname.includes('magic')
 const {Env} = mode ? require('./magic') : require('./magic')
-const $ = new Env('M关注有礼');
+const $ = new Env('自动车-M关注有礼');
 $.followShopArgv = process.env.M_FOLLOW_SHOP_ARGV
     ? process.env.M_FOLLOW_SHOP_ARGV
     : '';
@@ -66,7 +66,7 @@ $.after = async function () {
         $.msg.push($.activityUrl);
     }
 }
-$.run({whitelist: ['1-30'], wait: [1000, 3000]}).catch(reason => $.log(reason))
+$.run({whitelist: ['1-5'], wait: [1000, 3000]}).catch(reason => $.log(reason))
 
 async function drawShopGift() {
     $.log('店铺信息', $.shopId, $.venderId, $.activityId)
@@ -129,4 +129,3 @@ async function getShopHomeActivityInfo() {
     let {status, data} = await $.request(url, headers, newVar.sign);
     return data;
 }
-
