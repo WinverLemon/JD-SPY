@@ -13,57 +13,22 @@
 # 新建Ark目录
 mkdir /root/Ark 
 
-cd /root/Ark && mkdir -p Config
+cd /root/Nark && mkdir -p Config
 
-# 将授权文件放入/root/Ark/Config中
-# 将`Config.json`文件放入/root/Ark/Config
+# 将授权文件放入/root/Nark/Config中
+# 将`Config.json`文件放入/root/Nark/Config
 
 # 建立 日志文件夹
-cd /root/Ark && mkdir -p logfile 
+cd /root/Nark && mkdir -p logfile 
 
-cd /root/Ark
+cd /root/Nark
 
 # 准备拉取启动容器 `一键docker（不需要docker pull）`
 sudo docker run   --name nark -p 5701:80  -d  -v  "$(pwd)"/Config:/app/Config \
 -v  "$(pwd)"/logfile:/app/logfile  \
 -it --privileged=true  nolanhzy/nark:latest
-```
 
-  </CodeGroupItem>
 
-  <CodeGroupItem title="ARM">
-
-  ```bash
-# 
-mkdir /root/Ark 
-
-cd /root/Ark && mkdir -p Config
-
-# 将授权文件放入/root/Ark/Config中
-# 将 `Config.json` 文件放入/root/Ark/Config
-
-# 建立 日志文件夹
-cd /root/Ark && mkdir -p logfile 
-
-cd /root/Ark
-
-# 准备拉取启动容器 `一键docker（不需要docker pull）`
-sudo docker run   --name nark -p 5701:80  -d  -v  "$(pwd)"/Config:/app/Config \
--v  "$(pwd)"/logfile:/app/logfile  \
--it --privileged=true  nolanhzy/nark:arm
-```
-
-  </CodeGroupItem>
-  <CodeGroupItem title="Windows电脑">
-
-```bash
-# 比如目录是放在D盘下
-docker run --name nark -p 5701:80 -d -v D:/Ark/Config:/app/Config -v D:/Ark/logfile:/app/logfile -it --privileged=true nolanhzy/nark:latest
-
-# 如果青龙也是搭建在本机（windows）下，那么
-
-# 获取所有容器名称及其IP地址
-docker inspect -f '{{.Name}} - {{.NetworkSettings.IPAddress }}' $(docker ps -aq)
 ```
 
   </CodeGroupItem>
@@ -135,9 +100,7 @@ docker inspect -f '{{.Name}} - {{.NetworkSettings.IPAddress }}' $(docker ps -aq)
 
 ::: tip 
 
-配置文件下载地址:point_right:：[Config.json](https://t.me/c/1648382151/594)
 
-授权文件请到[tg群](https://t.me/NolanNarkNotice)获取，不定时开放
 
 ~~nark与授权中心交互必须知道ip。启动的时候会注册ip，如果你挂了代理，记得给n.nnnolanark.xyz设置直连 更换ip重启nark即可:point_down:~~
 
@@ -176,56 +139,4 @@ docker run --rm     -v /var/run/docker.sock:/var/run/docker.sock     containrrr/
 
 ```bash
 docker restart nark
-```
-
-:::
-
-::: tip
-对接[wxpusher](https://wxpusher.zjiecode.com/)的，需要在应用的[事件回调地址](https://wxpusher.zjiecode.com/admin/main/app/appInfo)配置：`nark容器ip:端口号/api/wxpusher`
-:::
-
-### 群晖 
-* [docker仓库](https://hub.docker.com/r/nolanhzy/nark)
-* [原文链接](https://t.me/update_help/245)
-
-```bash
-# 1、安装 Git Server 套件并部署，自行百度，不详述；
-
-# 2、定位到共享文件夹 docker 下。查看其详情，获取绝对路径，比如
-/volume1/docker；
-
-# 3、拉取源码
-git clone https://github.com/NNNNolan/Ark.git /volume1/docker/Ark
-
-# 4、创建配置文件夹并定位到该文件夹；
-mkdir -p  Config && cd Config
-
-# 5、下载原始配置模板配置。[点击此处](https://t.me/update_help/246)前往文件及教程；
-
-# 6、定位到nuolanjdc文件夹，创建 chromium 驱动文件夹
-cd /volume1/docker/Ark && mkdir -p  .local-chromium/Linux-884014 && cd .local-chromium/Linux-884014
-
-# 7、下载 chromium 驱动包，解压后将 chrome-linux 文件夹整体上传至 /volume1/docker/Ark/.local-chromium/Linux-884014
-chromium 驱动包下载地址：
-https://mirrors.huaweicloud.com/chromium-browser-snapshots/Linux_x64/884014/chrome-linux.zip
-
-# 8、拉取 Docker 注册表并创建、启动容器；
-docker run -dit \
---name ark \
--p 5701:80 \
--p 5100:5000 \
--v /volume1/docker/Ark:/app/Ark \
--v /etc/localtime:/etc/localtime:ro \
---privileged=true \
-nolanhzy/ark:latest
-
-# 9、修正时区：
-# 9.1 进入容器
-docker exec -it ark bash
-# 9.2 修改时间
-cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-# 9.3 输入date 查看时区对不对 群辉的docker 日志时间有毛病 我们就不用管
-docker exec -it nark bash && date # 进入docker容器
-
-# 10、之后就可以通过“群晖的地址:5701”访问 nolan Ark 了。据说第一次会卡一下，忍一下后面就好了。
 ```
